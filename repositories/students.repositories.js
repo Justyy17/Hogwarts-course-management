@@ -15,6 +15,11 @@ export async function postStudent(name, year, house_id) {
   return result.rows[0];
 }
 
+export async function putStudent(id, name, year, house_id) {
+  const result = await pool.query("UPDATE students SET name = $1, year = $2, house_id = $3 WHERE id = $4 RETURNING *", [name, year, house_id, id]);
+  return result.rows[0];
+}
+
 export async function deleteStudent(id) {
   const result = await pool.query("DELETE FROM students WHERE id = $1", [id]);
   return result.rowCount > 0;
