@@ -14,6 +14,7 @@ export const getStudentById = async (req, res) => {
   try {
     if (!Number.isInteger(Number(req.params.id))) return res.status(400).json({ message: "Invalid Id" });
     const student = await StudentRepositories.getStudentById(req.params.id);
+    if (!student) return res.status(404).json({ message: "Student not found" });
     res.status(200).json(student);
   } catch (error) {
     console.log(error);

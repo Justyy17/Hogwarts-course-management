@@ -1,0 +1,670 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-11-01T17:30:59.425Z",
+  "__export_source": "claude-code",
+  "resources": [
+    {
+      "_id": "wrk_hogwarts",
+      "_type": "workspace",
+      "name": "Hogwarts API",
+      "scope": "collection",
+      "parentId": null
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "name": "Base Environment",
+      "parentId": "wrk_hogwarts",
+      "data": {
+        "base_url": "http://localhost:3000"
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url"]
+      },
+      "environmentType": "kvPair",
+      "kvPairData": [
+        {
+          "id": "envPair_base_url",
+          "name": "base_url",
+          "value": "http://localhost:3000",
+          "type": "str",
+          "enabled": true
+        }
+      ],
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1,
+      "created": 1,
+      "modified": 1
+    },
+    {
+      "_id": "fld_houses",
+      "_type": "request_group",
+      "name": "Houses",
+      "parentId": "wrk_hogwarts",
+      "metaSortKey": -1000
+    },
+    {
+      "_id": "req_1",
+      "_type": "request",
+      "parentId": "fld_houses",
+      "name": "Get all houses",
+      "method": "GET",
+      "url": "http://localhost:3000/houses",
+      "metaSortKey": -999,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_2",
+      "_type": "request",
+      "parentId": "fld_houses",
+      "name": "Get house by id",
+      "method": "GET",
+      "url": "http://localhost:3000/houses/1",
+      "metaSortKey": -998,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_3",
+      "_type": "request",
+      "parentId": "fld_houses",
+      "name": "Get house - invalid id (400)",
+      "method": "GET",
+      "url": "http://localhost:3000/houses/abc",
+      "metaSortKey": -997,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_4",
+      "_type": "request",
+      "parentId": "fld_houses",
+      "name": "Get house - not found (404)",
+      "method": "GET",
+      "url": "http://localhost:3000/houses/9999",
+      "metaSortKey": -996,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "fld_teachers",
+      "_type": "request_group",
+      "name": "Teachers",
+      "parentId": "wrk_hogwarts",
+      "metaSortKey": -995
+    },
+    {
+      "_id": "req_6",
+      "_type": "request",
+      "parentId": "fld_teachers",
+      "name": "Get all teachers",
+      "method": "GET",
+      "url": "http://localhost:3000/teachers",
+      "metaSortKey": -994,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_7",
+      "_type": "request",
+      "parentId": "fld_teachers",
+      "name": "Get teacher by id",
+      "method": "GET",
+      "url": "http://localhost:3000/teachers/1",
+      "metaSortKey": -993,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_8",
+      "_type": "request",
+      "parentId": "fld_teachers",
+      "name": "Get teacher - invalid id (400)",
+      "method": "GET",
+      "url": "http://localhost:3000/teachers/abc",
+      "metaSortKey": -992,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_9",
+      "_type": "request",
+      "parentId": "fld_teachers",
+      "name": "Get teacher - not found (404)",
+      "method": "GET",
+      "url": "http://localhost:3000/teachers/9999",
+      "metaSortKey": -991,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_10",
+      "_type": "request",
+      "parentId": "fld_teachers",
+      "name": "Create teacher",
+      "method": "POST",
+      "url": "http://localhost:3000/teachers",
+      "metaSortKey": -990,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Test Teacher\",\n  \"house_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_11",
+      "_type": "request",
+      "parentId": "fld_teachers",
+      "name": "Create teacher - missing name (400)",
+      "method": "POST",
+      "url": "http://localhost:3000/teachers",
+      "metaSortKey": -989,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"house_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_12",
+      "_type": "request",
+      "parentId": "fld_teachers",
+      "name": "Create teacher - bad house (400)",
+      "method": "POST",
+      "url": "http://localhost:3000/teachers",
+      "metaSortKey": -988,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Test Teacher\",\n  \"house_id\": 9999\n}"
+      }
+    },
+    {
+      "_id": "req_13",
+      "_type": "request",
+      "parentId": "fld_teachers",
+      "name": "Delete teacher",
+      "method": "DELETE",
+      "url": "http://localhost:3000/teachers/1",
+      "metaSortKey": -987,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_14",
+      "_type": "request",
+      "parentId": "fld_teachers",
+      "name": "Delete teacher - not found (404)",
+      "method": "DELETE",
+      "url": "http://localhost:3000/teachers/9999",
+      "metaSortKey": -986,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "fld_students",
+      "_type": "request_group",
+      "name": "Students",
+      "parentId": "wrk_hogwarts",
+      "metaSortKey": -985
+    },
+    {
+      "_id": "req_16",
+      "_type": "request",
+      "parentId": "fld_students",
+      "name": "Get all students",
+      "method": "GET",
+      "url": "http://localhost:3000/students",
+      "metaSortKey": -984,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_17",
+      "_type": "request",
+      "parentId": "fld_students",
+      "name": "Get student by id",
+      "method": "GET",
+      "url": "http://localhost:3000/students/1",
+      "metaSortKey": -983,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_18",
+      "_type": "request",
+      "parentId": "fld_students",
+      "name": "Get student - invalid id (400)",
+      "method": "GET",
+      "url": "http://localhost:3000/students/abc",
+      "metaSortKey": -982,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_19",
+      "_type": "request",
+      "parentId": "fld_students",
+      "name": "Get student - not found (404)",
+      "method": "GET",
+      "url": "http://localhost:3000/students/9999",
+      "metaSortKey": -981,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_20",
+      "_type": "request",
+      "parentId": "fld_students",
+      "name": "Create student",
+      "method": "POST",
+      "url": "http://localhost:3000/students",
+      "metaSortKey": -980,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Test Student\",\n  \"year\": 1,\n  \"house_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_21",
+      "_type": "request",
+      "parentId": "fld_students",
+      "name": "Create student - missing name (400)",
+      "method": "POST",
+      "url": "http://localhost:3000/students",
+      "metaSortKey": -979,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"year\": 1,\n  \"house_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_22",
+      "_type": "request",
+      "parentId": "fld_students",
+      "name": "Create student - bad house (400)",
+      "method": "POST",
+      "url": "http://localhost:3000/students",
+      "metaSortKey": -978,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Test Student\",\n  \"year\": 1,\n  \"house_id\": 9999\n}"
+      }
+    },
+    {
+      "_id": "req_23",
+      "_type": "request",
+      "parentId": "fld_students",
+      "name": "Delete student",
+      "method": "DELETE",
+      "url": "http://localhost:3000/students/1",
+      "metaSortKey": -977,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_24",
+      "_type": "request",
+      "parentId": "fld_students",
+      "name": "Delete student - not found (404)",
+      "method": "DELETE",
+      "url": "http://localhost:3000/students/9999",
+      "metaSortKey": -976,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "fld_courses",
+      "_type": "request_group",
+      "name": "Courses",
+      "parentId": "wrk_hogwarts",
+      "metaSortKey": -975
+    },
+    {
+      "_id": "req_26",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Get all courses",
+      "method": "GET",
+      "url": "http://localhost:3000/courses",
+      "metaSortKey": -974,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_27",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Get course by id",
+      "method": "GET",
+      "url": "http://localhost:3000/courses/1",
+      "metaSortKey": -973,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_28",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Get course - invalid id (400)",
+      "method": "GET",
+      "url": "http://localhost:3000/courses/abc",
+      "metaSortKey": -972,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_29",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Get course - not found (404)",
+      "method": "GET",
+      "url": "http://localhost:3000/courses/9999",
+      "metaSortKey": -971,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_30",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Create course",
+      "method": "POST",
+      "url": "http://localhost:3000/courses",
+      "metaSortKey": -970,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Test Course\",\n  \"teacher_id\": 2\n}"
+      }
+    },
+    {
+      "_id": "req_31",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Create course - missing name (400)",
+      "method": "POST",
+      "url": "http://localhost:3000/courses",
+      "metaSortKey": -969,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"teacher_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_32",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Create course - bad teacher (400)",
+      "method": "POST",
+      "url": "http://localhost:3000/courses",
+      "metaSortKey": -968,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Test Course\",\n  \"teacher_id\": 9999\n}"
+      }
+    },
+    {
+      "_id": "req_33",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Update course",
+      "method": "PUT",
+      "url": "http://localhost:3000/courses/1",
+      "metaSortKey": -967,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Renamed Course\",\n  \"teacher_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_34",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Update course - not found (404)",
+      "method": "PUT",
+      "url": "http://localhost:3000/courses/9999",
+      "metaSortKey": -966,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Renamed Course\",\n  \"teacher_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_35",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Set course teacher",
+      "method": "PUT",
+      "url": "http://localhost:3000/courses/1/teacher",
+      "metaSortKey": -965,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"teacher_id\": 2\n}"
+      }
+    },
+    {
+      "_id": "req_36",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Set course teacher - bad teacher (400)",
+      "method": "PUT",
+      "url": "http://localhost:3000/courses/1/teacher",
+      "metaSortKey": -964,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"teacher_id\": 9999\n}"
+      }
+    },
+    {
+      "_id": "req_37",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Add student to course",
+      "method": "POST",
+      "url": "http://localhost:3000/courses/1/students",
+      "metaSortKey": -963,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"student_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_38",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Add student - bad student (400/404)",
+      "method": "POST",
+      "url": "http://localhost:3000/courses/1/students",
+      "metaSortKey": -962,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"student_id\": 9999\n}"
+      }
+    },
+    {
+      "_id": "req_39",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Remove student from course",
+      "method": "DELETE",
+      "url": "http://localhost:3000/courses/1/students",
+      "metaSortKey": -961,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"student_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_40",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Delete course",
+      "method": "DELETE",
+      "url": "http://localhost:3000/courses/1",
+      "metaSortKey": -960,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_41",
+      "_type": "request",
+      "parentId": "fld_courses",
+      "name": "Delete course - not found (404)",
+      "method": "DELETE",
+      "url": "http://localhost:3000/courses/9999",
+      "metaSortKey": -959,
+      "headers": [],
+      "parameters": [],
+      "authentication": {}
+    }
+  ]
+}

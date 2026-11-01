@@ -5,5 +5,6 @@ const router = Router();
 router.get("/", TeachersControllers.getAllTeachers);
 router.get("/:id", TeachersControllers.getTeacherById);
 router.post("/", TeachersControllers.postTeacher);
+router.put("/:id", TeachersControllers.putTeacher);
 router.delete("/:id", TeachersControllers.deleteTeacher);
 export default router;

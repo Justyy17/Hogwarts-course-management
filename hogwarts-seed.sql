@@ -28,7 +28,7 @@ INSERT INTO teachers (name, house_id) VALUES
     ('Minerva McGonagall', 1),
     ('Filius Flitwick', 3);
 
-SELECT * FROM teachers
+SELECT * FROM teachers;
 
 -- Students tabel (Fuld CRUD (Create, Update, Delete))
 
@@ -36,7 +36,7 @@ CREATE TABLE students (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     year INT,
-    house_id INT REFERENCES house(id)
+    house_id INT REFERENCES houses(id)
 );
 
 INSERT INTO students (name, year, house_id) VALUES

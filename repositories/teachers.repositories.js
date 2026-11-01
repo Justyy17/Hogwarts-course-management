@@ -11,8 +11,13 @@ export async function getTeacherById(id) {
   return result.rows[0];
 }
 
-export async function postTeacher(name, houseid) {
-  const result = await pool.query("INSERT INTO teachers (name, house_id) VALUES ($1, $2) RETURNING *", [name, houseid]);
+export async function postTeacher(name, house_id) {
+  const result = await pool.query("INSERT INTO teachers (name, house_id) VALUES ($1, $2) RETURNING *", [name, house_id]);
+  return result.rows[0];
+}
+
+export async function putTeacher(id, name, house_id) {
+  const result = await pool.query("UPDATE teachers SET name = $1, house_id = $2 WHERE id = $3 RETURNING *", [name, house_id, id]);
   return result.rows[0];
 }
 

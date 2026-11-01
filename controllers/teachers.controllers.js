@@ -39,6 +39,25 @@ export const postTeacher = async (req, res) => {
   }
 };
 
+export const putTeacher = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { name, house_id } = req.body;
+    if (!Number.isInteger(Number(id))) return res.stauts(400).send({ message: "Invalid Id" });
+    if (!Number.isInteger(Number(house_id))) return res.stauts(400).send({ message: "Invalid house Id" });
+    if (!name) return res.status(400).send({ message: "name is required" });
+    const teacher = await TeachersRepositories.putTeacher(id, name, house_id);
+    if (!teacher) return res.status(404).send({ message: "Teacher not found" });
+    res.status(201).json(teacher);
+  } catch (error) {
+    if (error.code === "23503") {
+      return res.status(400).send({ message: "Invalid house id" });
+    }
+    console.log(error);
+    res.status(500).send({ message: "Error connecting to database" });
+  }
+};
+
 export const deleteTeacher = async (req, res) => {
   try {
     if (!Number.isInteger(Number(req.params.id))) return res.status(400).json({ message: "Invalid Id" });
