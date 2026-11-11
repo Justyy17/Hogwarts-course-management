@@ -8,6 +8,6 @@ router.post("/", CoursesControllers.postCourse);
 router.put("/:id", CoursesControllers.putCourse);
 router.put("/:id/teacher", CoursesControllers.putCourseTeacher);
 router.post("/:id/students", CoursesControllers.postCourseStudent);
-router.delete("/:id/students", CoursesControllers.delteCourseStudent);
+router.delete("/:id/students", CoursesControllers.deleteCourseStudent);
 router.delete("/:id", CoursesControllers.deleteCourse);
 export default router;

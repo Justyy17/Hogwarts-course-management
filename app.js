@@ -13,6 +13,12 @@ app.use("/teachers", teachersRoutes);
 app.use("/students", studentRoutes);
 app.use("/courses", coursesRoutes);
 
+app.use((err, req, res, next) => {
+  if (err.status) return res.status(err.status).json({ message: err.message });
+  console.log(err);
+  res.status(500).json({ message: "Error connecting to database" });
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

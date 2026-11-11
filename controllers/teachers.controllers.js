@@ -1,73 +1,23 @@
-import * as TeachersRepositories from "../repositories/teachers.repositories.js";
+import * as TeachersServices from "../services/teachers.services.js";
 
 export const getAllTeachers = async (req, res) => {
-  try {
-    const allTeachers = await TeachersRepositories.getAllTeachers();
-    res.status(200).json(allTeachers);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: "Error connecting to database" });
-  }
+  res.status(200).json(await TeachersServices.getAllTeachers());
 };
 
 export const getTeacherById = async (req, res) => {
-  try {
-    if (!Number.isInteger(Number(req.params.id))) return res.status(400).json({ message: "Invalid Id" });
-    const teacher = await TeachersRepositories.getTeacherById(req.params.id);
-    if (!teacher) return res.status(404).send({ message: "Teacher not found" });
-    res.status(200).json(teacher);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: "Error connecting to database" });
-  }
+  res.status(200).json(await TeachersServices.getTeacherById(req.params.id));
 };
 
 export const postTeacher = async (req, res) => {
-  try {
-    const { name, house_id } = req.body;
-    if (!req.body.name) {
-      return res.status(400).send({ message: "name is required" });
-    }
-    const teacher = await TeachersRepositories.postTeacher(name, house_id);
-    res.status(201).json(teacher);
-  } catch (error) {
-    if (error.code === "23503") {
-      return res.status(400).send({ message: "Invalid house id" });
-    }
-    console.log(error);
-    res.status(500).send({ message: "Error connecting to database" });
-  }
+  const { name, house_id } = req.body;
+  res.status(201).json(await TeachersServices.postTeacher(name, house_id));
 };
 
 export const putTeacher = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const { name, house_id } = req.body;
-    if (!Number.isInteger(Number(id))) return res.stauts(400).send({ message: "Invalid Id" });
-    if (!Number.isInteger(Number(house_id))) return res.stauts(400).send({ message: "Invalid house Id" });
-    if (!name) return res.status(400).send({ message: "name is required" });
-    const teacher = await TeachersRepositories.putTeacher(id, name, house_id);
-    if (!teacher) return res.status(404).send({ message: "Teacher not found" });
-    res.status(201).json(teacher);
-  } catch (error) {
-    if (error.code === "23503") {
-      return res.status(400).send({ message: "Invalid house id" });
-    }
-    console.log(error);
-    res.status(500).send({ message: "Error connecting to database" });
-  }
+  const { name, house_id } = req.body;
+  res.status(200).json(await TeachersServices.putTeacher(req.params.id, name, house_id));
 };
 
 export const deleteTeacher = async (req, res) => {
-  try {
-    if (!Number.isInteger(Number(req.params.id))) return res.status(400).json({ message: "Invalid Id" });
-    const deleted = await TeachersRepositories.deleteTeacher(req.params.id);
-    if (!deleted) {
-      return res.status(404).send({ message: "Teacher not found" });
-    }
-    res.status(200).json({ message: "Teacher deleted" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: "Error connecting to database" });
-  }
+  res.status(200).json(await TeachersServices.deleteTeacher(req.params.id));
 };
