@@ -14,8 +14,8 @@ export const postTeacher = async (req, res) => {
 };
 
 export const putTeacher = async (req, res) => {
-  const { name, house_id } = req.body;
-  res.status(200).json(await TeachersServices.putTeacher(req.params.id, name, house_id));
+  const data = req.body;
+  res.status(200).json(await TeachersServices.putTeacher(req.params.id, data));
 };
 
 export const deleteTeacher = async (req, res) => {

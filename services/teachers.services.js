@@ -1,5 +1,6 @@
 import * as TeachersRepositories from "../repositories/teachers.repositories.js";
 import { httpError } from "../errors.js";
+import updateTeacherDto from "../dto/updateteacher.dto.js";
 
 export async function getAllTeachers() {
   return await TeachersRepositories.getAllTeachers();
@@ -24,12 +25,11 @@ export async function postTeacher(name, house_id) {
   }
 }
 
-export async function putTeacher(id, name, house_id) {
-  if (!Number.isInteger(Number(id))) throw httpError(400, "Invalid Id");
-  if (!Number.isInteger(Number(house_id))) throw httpError(400, "Invalid House Id");
-  if (!name) throw httpError(400, "name is required");
+export async function putTeacher(id, data) {
+  data.id = Number(id);
+  const validatedData = updateTeacherDto.parse(data);
   try {
-    const teacher = await TeachersRepositories.putTeacher(id, name, house_id);
+    const teacher = await TeachersRepositories.putTeacher(id, validatedData.name, validatedData.house_id);
     if (!teacher) throw httpError(404, "Teacher not found");
     return teacher;
   } catch (error) {

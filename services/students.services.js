@@ -1,5 +1,6 @@
 import * as StudentRepositories from "../repositories/students.repositories.js";
 import { httpError } from "../errors.js";
+import studentDto from "../dto/student.dto.js";
 
 export async function getAllStudents() {
   return await StudentRepositories.getAllStudents();
@@ -12,10 +13,10 @@ export async function getStudentById(id) {
   return student;
 }
 
-export async function postStudent(name, year, house_id) {
-  if (!name) throw httpError(400, "name is required");
+export async function postStudent(data) {
+  const validatedData = studentDto.parse(data);
   try {
-    return await StudentRepositories.postStudent(name, year, house_id);
+    return await StudentRepositories.postStudent(validatedData.name, validatedData.school_year, validatedData.house_id, validatedData.birthday);
   } catch (error) {
     if (error.code === "23503") {
       throw httpError(400, "House not found");

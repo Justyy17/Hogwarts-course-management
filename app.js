@@ -5,6 +5,8 @@ import housesRoutes from "./routes/houses.routes.js";
 import teachersRoutes from "./routes/teachers.routes.js";
 import studentRoutes from "./routes/students.routes.js";
 import coursesRoutes from "./routes/courses.routes.js";
+import examRoutes from "./routes/exams.routes.js";
+import gradesRoutes from "./routes/grades.routes.js";
 
 app.use(express.json()); // For at kunne læse json i req body
 
@@ -12,6 +14,8 @@ app.use("/houses", housesRoutes);
 app.use("/teachers", teachersRoutes);
 app.use("/students", studentRoutes);
 app.use("/courses", coursesRoutes);
+app.use("/exams", examRoutes);
+app.use("/grades", gradesRoutes);
 
 app.use((err, req, res, next) => {
   if (err.status) return res.status(err.status).json({ message: err.message });

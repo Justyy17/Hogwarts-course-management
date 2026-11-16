@@ -1,4 +1,5 @@
 import { pool } from "../db.js";
+import { getHouseById } from "./houses.repositories.js";
 
 export async function getAllTeachers() {
   const result = await pool.query("SELECT * FROM teachers");
@@ -8,6 +9,9 @@ export async function getAllTeachers() {
 
 export async function getTeacherById(id) {
   const result = await pool.query("SELECT * FROM teachers WHERE id = $1", [id]);
+  const houseId = result.rows[0].house_id;
+  const house = await getHouseById(houseId);
+  result.rows[0].house_id = house.name;
   return result.rows[0];
 }
 
@@ -17,8 +21,11 @@ export async function postTeacher(name, house_id) {
 }
 
 export async function putTeacher(id, name, house_id) {
-  const result = await pool.query("UPDATE teachers SET name = $1, house_id = $2 WHERE id = $3 RETURNING *", [name, house_id, id]);
-  return result.rows[0];
+  const result = await pool.query("UPDATE teachers SET name = $1, house_id = $2 WHERE id = $3 RETURNING id", [name, house_id, id]);
+
+  if (result.rowCount === 0) return null;
+  const updatedId = result.rows[0].id;
+  return getTeacherById(id);
 }
 
 export async function deleteTeacher(id) {

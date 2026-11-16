@@ -1,6 +1,9 @@
 import * as CoursesRepositories from "../repositories/courses.repositories.js";
 import { getStudentById } from "../repositories/students.repositories.js";
 import { httpError } from "../errors.js";
+import updateCourseDto from "../dto/updatecourse.dto.js";
+import courseStudentDto from "../dto/coursestudent.dto.js";
+import courseTeacherDto from "../dto/courseteacher.dto.js";
 
 export async function getAllCourses() {
   const allCourses = await CoursesRepositories.getAllCourses();
@@ -14,10 +17,10 @@ export async function getCourseById(id) {
   return course;
 }
 
-export async function postCourse(name, teacher_id) {
-  if (!name) throw httpError(400, "name is required");
+export async function postCourse(data) {
+  const validatedData = updateCourseDto.parse(data);
   try {
-    return await CoursesRepositories.postCourse(name, teacher_id);
+    return await CoursesRepositories.postCourse(validatedData.name, validatedData.teacher_id, validatedData.type, validatedData.level, validatedData.school_year);
   } catch (error) {
     if (error.code === "23503") {
       throw httpError(400, "Invalid teacher id");
@@ -26,12 +29,11 @@ export async function postCourse(name, teacher_id) {
   }
 }
 
-export async function putCourse(id, name, teacher_id) {
-  if (!Number.isInteger(Number(id))) throw httpError(400, "Invalid Id");
-  if (!Number.isInteger(Number(teacher_id))) throw httpError(400, "Invalid Teacher Id");
-  if (!name) throw httpError(400, "name is required");
+export async function putCourse(id, data) {
+  data.id = Number(id);
+  const validatedData = updateCourseDto.parse(data);
   try {
-    const course = await CoursesRepositories.putCourse(id, name, teacher_id);
+    const course = await CoursesRepositories.putCourse(validatedData.name, validatedData.teacher_id, validatedData.type, validatedData.level, validatedData.school_year);
     if (!course) throw httpError(404, "Course not found");
     return course;
   } catch (error) {
@@ -42,11 +44,11 @@ export async function putCourse(id, name, teacher_id) {
   }
 }
 
-export async function putCourseTeacher(id, teacher_id) {
-  if (!Number.isInteger(Number(id))) throw httpError(400, "Invalid Id");
-  if (!Number.isInteger(Number(teacher_id))) throw httpError(400, "Invalid Teacher Id");
+export async function putCourseTeacher(id, data) {
+  data.id = Number(id);
+  const validatedData = courseTeacherDto.parse(data);
   try {
-    const course = await CoursesRepositories.putCourseTeacher(id, teacher_id);
+    const course = await CoursesRepositories.putCourseTeacher(validatedData.id, validatedData.teacher_id);
     if (!course) throw httpError(404, "Course not found");
     return course;
   } catch (error) {
@@ -57,11 +59,11 @@ export async function putCourseTeacher(id, teacher_id) {
   }
 }
 
-export async function postCourseStudent(id, student_id) {
-  if (!Number.isInteger(Number(id))) throw httpError(400, "Invalid Course Id");
-  if (!Number.isInteger(Number(student_id))) throw httpError(400, "Invalid Student Id");
+export async function postCourseStudent(id, data) {
+  data.id = Number(id);
+  const validatedData = courseStudentDto.parse(data);
   try {
-    const course = await CoursesRepositories.postCourseStudent(id, student_id);
+    const course = await CoursesRepositories.postCourseStudent(validatedData.id, validatedData.student_id);
     if (!course) throw httpError(404, "Course not found");
     return course;
   } catch (error) {
@@ -72,14 +74,14 @@ export async function postCourseStudent(id, student_id) {
   }
 }
 
-export async function deleteCourseStudent(id, student_id) {
-  if (!Number.isInteger(Number(id))) throw httpError(400, "Invalid Course Id");
-  if (!Number.isInteger(Number(student_id))) throw httpError(400, "Invalid Student Id");
+export async function deleteCourseStudent(id, data) {
+  data.id = Number(id);
+  const validatedData = courseStudentDto.parse(data);
   const course = await CoursesRepositories.getCourseById(id);
   if (!course) throw httpError(404, "Course not found");
-  const student = await getStudentById(student_id);
+  const student = await getStudentById(validatedData.student_id);
   if (!student) throw httpError(404, "Student not found");
-  const deleted = await CoursesRepositories.deleteCourseStudent(id, student_id);
+  const deleted = await CoursesRepositories.deleteCourseStudent(validatedData.id, validatedData.student_id);
   if (!deleted) {
     throw httpError(404, "Student not found on course");
   }

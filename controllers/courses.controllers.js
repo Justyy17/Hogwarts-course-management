@@ -9,27 +9,27 @@ export const getCourseById = async (req, res) => {
 };
 
 export const postCourse = async (req, res) => {
-  const { name, teacher_id } = req.body;
+  const data = req.body;
   res.status(201).json(await CoursesServices.postCourse(name, teacher_id));
 };
 
 export const putCourse = async (req, res) => {
-  const { name, teacher_id } = req.body;
+  const data = req.body;
   res.status(200).json(await CoursesServices.putCourse(req.params.id, name, teacher_id));
 };
 
 export const putCourseTeacher = async (req, res) => {
-  const { teacher_id } = req.body;
+  const data = req.body;
   res.status(200).json(await CoursesServices.putCourseTeacher(req.params.id, teacher_id));
 };
 
 export const postCourseStudent = async (req, res) => {
-  const { student_id } = req.body;
+  const data = req.body;
   res.status(200).json(await CoursesServices.postCourseStudent(req.params.id, student_id));
 };
 
 export const deleteCourseStudent = async (req, res) => {
-  const { student_id } = req.body;
+  const data = req.body;
   res.status(200).json(await CoursesServices.deleteCourseStudent(req.params.id, student_id));
 };
 
